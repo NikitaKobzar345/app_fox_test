@@ -51,84 +51,85 @@ class _SelectScreenState extends State<SelectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocBuilder<SelectBloc, SelectState>(
-      bloc: selectBloc,
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  DropdownButton<String>(
-                    value: _categoryValue,
-                    items: _categoryValues
-                        .map(
-                          (dropDownItem) => DropdownMenuItem<String>(
-                            value: dropDownItem,
-                            child: Text(dropDownItem),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (selectedCategory) {
-                      setState(
-                        () {
-                          _categoryValue = selectedCategory as String;
-                        },
-                      );
-                    },
-                  ),
-                  DropdownButton<String>(
-                    value: _difficultyValue,
-                    items: _difficultyValues
-                        .map(
-                          (dropDowmElement) => DropdownMenuItem<String>(
-                            value: dropDowmElement,
-                            child: Text(dropDowmElement),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (selectedDifficulty) {
-                      setState(
-                        () {
-                          _difficultyValue = selectedDifficulty as String;
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
-            ),
-            const Padding(padding: EdgeInsets.all(36)),
-            ElevatedButton(
-              onPressed: () {
-                selectBloc.add(
-                  SelectEvent(
-                      category: _categoryValue, difficulty: _difficultyValue),
-                );
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return QuestionsScreen(
-                        questionsData: state.choise,
-                      );
-                    },
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  Colors.purple[900],
+      body: BlocBuilder<SelectBloc, SelectState>(
+        bloc: selectBloc,
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    DropdownButton<String>(
+                      value: _categoryValue,
+                      items: _categoryValues
+                          .map(
+                            (dropDownItem) => DropdownMenuItem<String>(
+                              value: dropDownItem,
+                              child: Text(dropDownItem),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (selectedCategory) {
+                        setState(
+                          () {
+                            _categoryValue = selectedCategory as String;
+                          },
+                        );
+                      },
+                    ),
+                    DropdownButton<String>(
+                      value: _difficultyValue,
+                      items: _difficultyValues
+                          .map(
+                            (dropDowmElement) => DropdownMenuItem<String>(
+                              value: dropDowmElement,
+                              child: Text(dropDowmElement),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (selectedDifficulty) {
+                        setState(
+                          () {
+                            _difficultyValue = selectedDifficulty as String;
+                          },
+                        );
+                      },
+                    )
+                  ],
                 ),
               ),
-              child: const Text('Начать'),
-            )
-          ],
-        );
-      },
-    ));
+              const Padding(padding: EdgeInsets.all(36)),
+              ElevatedButton(
+                onPressed: () {
+                  selectBloc.add(
+                    SelectEvent(
+                        category: _categoryValue, difficulty: _difficultyValue),
+                  );
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return QuestionsScreen(
+                          questionsData: state.choise,
+                        );
+                      },
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Colors.purple[900],
+                  ),
+                ),
+                child: const Text('Начать'),
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 }
